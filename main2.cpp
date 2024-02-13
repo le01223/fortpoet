@@ -1,7 +1,14 @@
-#include<iostream>
+#define CPPHTTPLIB_OPENSSL_SUPPORT
+#include "cpp-httplib/httplib.h"
 
-int main() {
-    
-    std::cout << "WOW" << '\n';
-    return 0;
-}
+// HTTP
+httplib::Server svr;
+
+// HTTPS
+httplib::SSLServer svr;
+
+svr.Get("/hi", [](const httplib::Request &, httplib::Response &res) {
+  res.set_content("Hello World!", "text/plain");
+});
+
+svr.listen("0.0.0.0", 5500);
